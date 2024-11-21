@@ -2,709 +2,264 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Majestic Typing Race</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Majestic Typeracer</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Themes */
         :root {
-            --primary-color: #4A90E2;
-            --secondary-color: #50E3C2;
-            --background-color: #f0f4f8;
-            --text-color: #333;
-            --error-color: #E94E77;
-            --success-color: #28a745;
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-color: #4A148C;
+            --secondary-color: #D1C4E9;
+            --accent-color: #FFC107;
+            --background-gradient: linear-gradient(to bottom, #0D47A1, #311B92);
+            --text-color: #FFFFFF;
+            --error-color: #E53935;
+            --success-color: #43A047;
+            --font-primary: 'Cinzel', serif;
+            --font-secondary: 'Playfair Display', serif;
         }
-
-        [data-theme="dark"] {
-            --primary-color: #1E1E1E;
-            --secondary-color: #333;
-            --background-color: #121212;
-            --text-color: #f0f4f8;
-            --error-color: #ff6b6b;
-            --success-color: #4caf50;
-        }
-
-        /* Global Styles */
-        * {
-            box-sizing: border-box;
+        body {
             margin: 0;
             padding: 0;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--background-color);
+            font-family: var(--font-secondary);
             color: var(--text-color);
-            min-height: 100vh;
+            background: var(--background-gradient);
+            background-attachment: fixed;
+            background-size: cover;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Header */
-        header {
-            background: var(--primary-color);
-            color: #fff;
+        header, footer {
+            text-align: center;
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
         }
-
-        header .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        header h1 {
+            margin: 0;
+            font-family: var(--font-primary);
+            font-size: 3em;
+            letter-spacing: 2px;
         }
-
-        header nav a {
-            margin-left: 20px;
-            font-size: 1rem;
-        }
-
-        /* Main Content */
         main {
             flex: 1;
-            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(135deg, #ece9e6, #ffffff);
-            animation: backgroundAnimation 15s infinite alternate;
+            justify-content: center;
+            padding: 20px;
         }
-
-        @keyframes backgroundAnimation {
-            0% { background: linear-gradient(135deg, #ece9e6, #ffffff); }
-            100% { background: linear-gradient(135deg, #f0f4f8, #e0eafc); }
-        }
-
-        .landing {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .landing h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .landing button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            background-color: var(--secondary-color);
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .landing button:hover {
-            background-color: darken(var(--secondary-color), 10%);
-        }
-
-        /* Typing Test Section */
-        .typing-test {
-            display: none;
-            width: 100%;
+        #quote-display {
+            font-size: 1.5em;
             max-width: 800px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .passage {
-            font-size: 1.2rem;
-            line-height: 1.6;
             margin-bottom: 20px;
-            user-select: none;
+            line-height: 1.5;
         }
-
-        .passage .current {
-            background-color: rgba(74, 144, 226, 0.3);
-            border-radius: 3px;
+        #quote-input {
+            width: 80%;
+            max-width: 800px;
+            padding: 10px;
+            font-size: 1.2em;
+            border: none;
+            border-bottom: 2px solid var(--accent-color);
+            background: transparent;
+            color: var(--text-color);
+            outline: none;
         }
-
-        .passage .correct {
+        #quote-input::placeholder {
+            color: var(--secondary-color);
+        }
+        .hidden {
+            display: none;
+        }
+        .stats {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-family: var(--font-primary);
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: var(--secondary-color);
+        }
+        .correct {
             color: var(--success-color);
         }
-
-        .passage .incorrect {
+        .incorrect {
             color: var(--error-color);
         }
-
-        .input-area {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 5px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-area:focus {
-            border-color: var(--secondary-color);
-        }
-
-        /* Statistics Panel */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            font-size: 1rem;
-        }
-
-        .stats div {
-            text-align: center;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .progress-bar {
+        #progress-bar {
+            width: 80%;
+            max-width: 800px;
             height: 10px;
+            background: var(--secondary-color);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        #progress {
             width: 0%;
-            background-color: var(--secondary-color);
-            transition: width 0.3s ease;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-color);
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-        }
-
-        footer a {
-            color: #fff;
-            margin: 0 10px;
-        }
-
-        /* Settings Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-            animation: fadeIn 0.5s ease-in-out;
+            background: var(--accent-color);
+            transition: width 0.1s;
         }
-
-        .modal-content {
-            background-color: var(--background-color);
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .close {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-        }
-
-        .settings-group {
-            margin-bottom: 20px;
-        }
-
-        .settings-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .settings-group input[type="range"],
-        .settings-group select {
-            width: 100%;
-            padding: 5px;
-            font-size: 1rem;
-        }
-
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        /* Responsive Design */
         @media (max-width: 600px) {
-            .landing h1 {
-                font-size: 2rem;
+            header h1 {
+                font-size: 2em;
             }
-
-            .landing button {
-                width: 100%;
-                font-size: 1rem;
+            #quote-display {
+                font-size: 1.2em;
             }
-
-            .stats {
-                flex-direction: column;
-                gap: 10px;
+            #quote-input {
+                font-size: 1em;
             }
         }
     </style>
 </head>
-<body data-theme="light">
-    <!-- Header -->
+<body>
     <header>
-        <div class="logo">Majestic Typeracer</div>
-        <nav>
-            <a href="#" id="home-link">Home</a>
-            <a href="#" id="settings-link">Settings</a>
-            <a href="#" id="about-link">About</a>
-        </nav>
+        <h1>Majestic Typing Race</h1>
     </header>
-
-    <!-- Main Content -->
     <main>
-        <!-- Landing Section -->
-        <section class="landing" id="landing-section">
-            <h1>Welcome to Majestic Typeracer</h1>
-            <button id="start-button">Start Typing Test</button>
-        </section>
-
-        <!-- Typing Test Section -->
-        <section class="typing-test" id="typing-test-section">
-            <div class="passage" id="passage">
-                <!-- Passage text will be injected here -->
-            </div>
-            <input type="text" id="input-area" class="input-area" placeholder="Start typing here..." autofocus>
-            <div class="stats">
-                <div>
-                    <strong>WPM</strong>
-                    <div id="wpm">0</div>
-                </div>
-                <div>
-                    <strong>Accuracy</strong>
-                    <div id="accuracy">100%</div>
-                </div>
-                <div>
-                    <strong>Errors</strong>
-                    <div id="errors">0</div>
-                </div>
-                <div>
-                    <strong>Time</strong>
-                    <div id="time">0s</div>
-                </div>
-            </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-        </section>
+        <div id="quote-display"></div>
+        <input type="text" id="quote-input" placeholder="Start typing..." disabled>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <div class="stats hidden" id="stats">
+            <p>Time: <span id="time"></span> seconds</p>
+            <p>WPM: <span id="wpm"></span></p>
+            <p>Accuracy: <span id="accuracy"></span>%</p>
+        </div>
+        <button class="button" id="start-button">Start Race</button>
     </main>
-
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Majestic Typeracer. All rights reserved.</p>
-        <div>
-            <a href="#">Facebook</a> |
-            <a href="#">Twitter</a> |
-            <a href="#">Contact</a>
-        </div>
+        <p>Created with ❤️ for typing enthusiasts.</p>
     </footer>
-
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-settings">&times;</span>
-            <h2>Settings</h2>
-            <div class="settings-group">
-                <label for="theme-select">Theme</label>
-                <select id="theme-select">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-            </div>
-            <div class="settings-group">
-                <label for="font-size">Font Size</label>
-                <input type="range" id="font-size" min="14" max="24" value="16">
-            </div>
-            <div class="settings-group">
-                <label for="font-family">Font Family</label>
-                <select id="font-family">
-                    <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Default</option>
-                    <option value="'Courier New', Courier, monospace">Courier New</option>
-                    <option value="'Georgia', serif">Georgia</option>
-                    <option value="'Roboto', sans-serif">Roboto</option>
-                </select>
-            </div>
-            <div class="settings-group">
-                <label for="background-music">Background Music</label>
-                <select id="background-music">
-                    <option value="none">None</option>
-                    <option value="music1">Calm Waves</option>
-                    <option value="music2">Forest Ambience</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Modal -->
-    <div id="about-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-about">&times;</span>
-            <h2>About Majestic Typeracer</h2>
-            <p>Majestic Typeracer is a beautifully crafted typing practice tool designed to help you improve your typing speed and accuracy. Enjoy a majestic visual experience while honing your skills.</p>
-        </div>
-    </div>
-
-    <!-- Audio Elements for Background Music -->
-    <audio id="music1" loop>
-        <source src="https://example.com/calm-waves.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="music2" loop>
-        <source src="https://example.com/forest-ambience.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-        // JavaScript Code
-
-        // Data: Passages
+        // Passages array (avoid copyrighted material)
         const passages = [
-            {
-                text: "The quick brown fox jumps over the lazy dog. This pangram is often used to test typing speed and accuracy.",
-                difficulty: "Easy"
-            },
-            {
-                text: "In the midst of chaos, there is also opportunity. Embrace the challenges and turn them into stepping stones for success.",
-                difficulty: "Medium"
-            },
-            {
-                text: "To be, or not to be, that is the question. Whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune.",
-                difficulty: "Hard"
-            },
-            // Add more passages as needed
+            "The quick brown fox jumps over the lazy dog.",
+            "To be or not to be, that is the question.",
+            "All that glitters is not gold.",
+            "The only thing we have to fear is fear itself.",
+            "In the middle of difficulty lies opportunity.",
+            "Life is a journey, not a destination.",
+            "The early bird catches the worm.",
+            "Actions speak louder than words.",
+            "Knowledge is power.",
+            "Beauty is in the eye of the beholder."
         ];
 
-        // DOM Elements
+        const quoteDisplayElement = document.getElementById('quote-display');
+        const quoteInputElement = document.getElementById('quote-input');
         const startButton = document.getElementById('start-button');
-        const landingSection = document.getElementById('landing-section');
-        const typingTestSection = document.getElementById('typing-test-section');
-        const passageElement = document.getElementById('passage');
-        const inputArea = document.getElementById('input-area');
+        const progressBar = document.getElementById('progress');
+        const statsElement = document.getElementById('stats');
+        const timeElement = document.getElementById('time');
         const wpmElement = document.getElementById('wpm');
         const accuracyElement = document.getElementById('accuracy');
-        const errorsElement = document.getElementById('errors');
-        const timeElement = document.getElementById('time');
-        const progressBar = document.getElementById('progress-bar');
-        const homeLink = document.getElementById('home-link');
-        const settingsLink = document.getElementById('settings-link');
-        const aboutLink = document.getElementById('about-link');
-        const settingsModal = document.getElementById('settings-modal');
-        const closeSettings = document.getElementById('close-settings');
-        const aboutModal = document.getElementById('about-modal');
-        const closeAbout = document.getElementById('close-about');
-        const themeSelect = document.getElementById('theme-select');
-        const fontSizeSlider = document.getElementById('font-size');
-        const fontFamilySelect = document.getElementById('font-family');
-        const backgroundMusicSelect = document.getElementById('background-music');
 
-        // Audio Elements
-        const music1 = document.getElementById('music1');
-        const music2 = document.getElementById('music2');
+        let startTime;
+        let timerInterval;
+        let totalTyped = 0;
+        let totalErrors = 0;
 
-        // State Variables
-        let currentPassage = '';
-        let currentIndex = 0;
-        let timer = null;
-        let startTime = null;
-        let errorCount = 0;
-        let totalKeystrokes = 0;
-        let correctKeystrokes = 0;
-
-        // Initialize
-        function init() {
-            // Event Listeners
-            startButton.addEventListener('click', startTest);
-            inputArea.addEventListener('input', handleInput);
-            homeLink.addEventListener('click', showHome);
-            settingsLink.addEventListener('click', openSettings);
-            aboutLink.addEventListener('click', openAbout);
-            closeSettings.addEventListener('click', closeSettingsModal);
-            closeAbout.addEventListener('click', closeAboutModal);
-            themeSelect.addEventListener('change', changeTheme);
-            fontSizeSlider.addEventListener('input', changeFontSize);
-            fontFamilySelect.addEventListener('change', changeFontFamily);
-            backgroundMusicSelect.addEventListener('change', changeBackgroundMusic);
-
-            // Load Preferences
-            loadPreferences();
-        }
-
-        // Start Typing Test
-        function startTest() {
-            landingSection.style.display = 'none';
-            typingTestSection.style.display = 'block';
-            resetTest();
-            loadPassage();
-            inputArea.focus();
-        }
-
-        // Load a Random Passage
-        function loadPassage() {
+        function getRandomPassage() {
             const randomIndex = Math.floor(Math.random() * passages.length);
-            currentPassage = passages[randomIndex].text;
-            displayPassage(currentPassage);
+            return passages[randomIndex];
         }
 
-        // Display Passage with Span Elements
-        function displayPassage(text) {
-            passageElement.innerHTML = '';
-            text.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.innerText = char;
-                if (index === 0) {
-                    span.classList.add('current');
-                }
-                passageElement.appendChild(span);
+        function startGame() {
+            startButton.classList.add('hidden');
+            quoteInputElement.disabled = false;
+            quoteInputElement.value = '';
+            quoteInputElement.focus();
+            statsElement.classList.add('hidden');
+            progressBar.style.width = '0%';
+            totalTyped = 0;
+            totalErrors = 0;
+
+            const passage = getRandomPassage();
+            quoteDisplayElement.innerHTML = '';
+            passage.split('').forEach(char => {
+                const charSpan = document.createElement('span');
+                charSpan.innerText = char;
+                quoteDisplayElement.appendChild(charSpan);
             });
+
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
         }
 
-        // Handle User Input
-        function handleInput(e) {
-            const input = inputArea.value;
-            if (!startTime) {
-                startTimer();
-            }
+        function updateTimer() {
+            const elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            timeElement.innerText = elapsedTime;
+        }
 
-            const chars = passageElement.querySelectorAll('span');
+        quoteInputElement.addEventListener('input', () => {
+            const arrayQuote = quoteDisplayElement.querySelectorAll('span');
+            const arrayValue = quoteInputElement.value.split('');
+
             let correct = true;
+            totalTyped++;
 
-            // Iterate through each character in input
-            for (let i = 0; i < chars.length; i++) {
-                const char = input[i];
+            arrayQuote.forEach((charSpan, index) => {
+                const char = arrayValue[index];
                 if (char == null) {
-                    chars[i].classList.remove('correct', 'incorrect');
+                    charSpan.classList.remove('correct');
+                    charSpan.classList.remove('incorrect');
                     correct = false;
-                } else if (char === chars[i].innerText) {
-                    chars[i].classList.add('correct');
-                    chars[i].classList.remove('incorrect');
+                } else if (char === charSpan.innerText) {
+                    charSpan.classList.add('correct');
+                    charSpan.classList.remove('incorrect');
                 } else {
-                    chars[i].classList.add('incorrect');
-                    chars[i].classList.remove('correct');
+                    charSpan.classList.add('incorrect');
+                    charSpan.classList.remove('correct');
                     correct = false;
+                    totalErrors++;
                 }
-            }
+            });
 
-            // Update Metrics
-            updateMetrics(input);
-
-            // Update Progress Bar
-            const progress = Math.min((input.length / currentPassage.length) * 100, 100);
+            const progress = (arrayValue.length / arrayQuote.length) * 100;
             progressBar.style.width = progress + '%';
 
-            // Check Completion
-            if (input.length === currentPassage.length) {
-                endTest();
+            if (correct && arrayValue.length === arrayQuote.length) {
+                endGame();
             }
-        }
+        });
 
-        // Update Metrics
-        function updateMetrics(input) {
-            totalKeystrokes = input.length;
-            correctKeystrokes = 0;
-            errorCount = 0;
+        function endGame() {
+            clearInterval(timerInterval);
+            quoteInputElement.disabled = true;
+            const elapsedTime = (new Date() - startTime) / 1000;
+            const wpm = Math.round((quoteInputElement.value.length / 5) / (elapsedTime / 60));
+            const accuracy = Math.round(((totalTyped - totalErrors) / totalTyped) * 100);
 
-            const chars = passageElement.querySelectorAll('span');
-            chars.forEach((char, index) => {
-                if (input[index] === char.innerText) {
-                    correctKeystrokes++;
-                } else if (input[index] && input[index] !== char.innerText) {
-                    errorCount++;
-                }
-            });
-
-            const timeElapsed = (Date.now() - startTime) / 1000 / 60; // in minutes
-            const wpm = Math.round((correctKeystrokes / 5) / timeElapsed) || 0;
-            const accuracy = totalKeystrokes ? Math.round((correctKeystrokes / totalKeystrokes) * 100) : 100;
-
+            timeElement.innerText = Math.floor(elapsedTime);
             wpmElement.innerText = wpm;
-            accuracyElement.innerText = accuracy + '%';
-            errorsElement.innerText = errorCount;
-            timeElement.innerText = Math.floor((Date.now() - startTime) / 1000) + 's';
+            accuracyElement.innerText = accuracy;
+
+            statsElement.classList.remove('hidden');
+            startButton.innerText = 'Play Again';
+            startButton.classList.remove('hidden');
         }
 
-        // Timer Functions
-        function startTimer() {
-            startTime = Date.now();
-            timer = setInterval(() => {
-                const timeElapsed = Math.floor((Date.now() - startTime) / 1000);
-                timeElement.innerText = timeElapsed + 's';
-            }, 1000);
-        }
+        startButton.addEventListener('click', startGame);
 
-        function endTest() {
-            clearInterval(timer);
-            inputArea.disabled = true;
-            setTimeout(() => {
-                alert(`Test Completed!\nWPM: ${wpmElement.innerText}\nAccuracy: ${accuracyElement.innerText}\nErrors: ${errorsElement.innerText}`);
-                showHome();
-            }, 100);
-        }
-
-        // Reset Test
-        function resetTest() {
-            inputArea.value = '';
-            inputArea.disabled = false;
-            currentIndex = 0;
-            errorCount = 0;
-            totalKeystrokes = 0;
-            correctKeystrokes = 0;
-            wpmElement.innerText = '0';
-            accuracyElement.innerText = '100%';
-            errorsElement.innerText = '0';
-            timeElement.innerText = '0s';
-            progressBar.style.width = '0%';
-            clearInterval(timer);
-            startTime = null;
-        }
-
-        // Show Home/Landing Section
-        function showHome() {
-            typingTestSection.style.display = 'none';
-            landingSection.style.display = 'block';
-        }
-
-        // Settings Modal Functions
-        function openSettings() {
-            settingsModal.style.display = 'block';
-        }
-
-        function closeSettingsModal() {
-            settingsModal.style.display = 'none';
-        }
-
-        // About Modal Functions
-        function openAbout() {
-            aboutModal.style.display = 'block';
-        }
-
-        function closeAboutModal() {
-            aboutModal.style.display = 'none';
-        }
-
-        // Change Theme
-        function changeTheme(e) {
-            const theme = e.target.value;
-            document.body.setAttribute('data-theme', theme);
-            savePreferences();
-        }
-
-        // Change Font Size
-        function changeFontSize(e) {
-            const size = e.target.value + 'px';
-            passageElement.style.fontSize = size;
-            inputArea.style.fontSize = size;
-            savePreferences();
-        }
-
-        // Change Font Family
-        function changeFontFamily(e) {
-            const font = e.target.value;
-            document.body.style.fontFamily = font;
-            savePreferences();
-        }
-
-        // Change Background Music
-        function changeBackgroundMusic(e) {
-            const music = e.target.value;
-            music1.pause();
-            music2.pause();
-            if (music === 'music1') {
-                music1.play();
-            } else if (music === 'music2') {
-                music2.play();
+        // Accessibility: Start game with Enter key when focus is on the button
+        startButton.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                startGame();
             }
-            savePreferences();
-        }
-
-        // Save Preferences to Local Storage
-        function savePreferences() {
-            const preferences = {
-                theme: themeSelect.value,
-                fontSize: fontSizeSlider.value,
-                fontFamily: fontFamilySelect.value,
-                backgroundMusic: backgroundMusicSelect.value
-            };
-            localStorage.setItem('typeracerPreferences', JSON.stringify(preferences));
-        }
-
-        // Load Preferences from Local Storage
-        function loadPreferences() {
-            const preferences = JSON.parse(localStorage.getItem('typeracerPreferences'));
-            if (preferences) {
-                themeSelect.value = preferences.theme;
-                document.body.setAttribute('data-theme', preferences.theme);
-                fontSizeSlider.value = preferences.fontSize;
-                passageElement.style.fontSize = preferences.fontSize + 'px';
-                inputArea.style.fontSize = preferences.fontSize + 'px';
-                fontFamilySelect.value = preferences.fontFamily;
-                document.body.style.fontFamily = preferences.fontFamily;
-                backgroundMusicSelect.value = preferences.backgroundMusic;
-                if (preferences.backgroundMusic === 'music1') {
-                    music1.play();
-                } else if (preferences.backgroundMusic === 'music2') {
-                    music2.play();
-                }
-            }
-        }
-
-        // Close Modals on Outside Click
-        window.onclick = function(event) {
-            if (event.target == settingsModal) {
-                settingsModal.style.display = "none";
-            }
-            if (event.target == aboutModal) {
-                aboutModal.style.display = "none";
-            }
-        }
-
-        // Initialize on Page Load
-        window.onload = init;
+        });
     </script>
 </body>
 </html>
