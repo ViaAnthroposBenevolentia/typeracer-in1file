@@ -8,15 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Playfair+Display&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4A148C;
-            --secondary-color: #D1C4E9;
-            --accent-color: #FFC107;
-            --background-gradient: linear-gradient(to bottom, #0D47A1, #311B92);
+            --primary-color: #2C3E50;
+            --secondary-color: #ECF0F1;
+            --accent-color: #3498DB;
+            --background-gradient: linear-gradient(135deg, #1A2980, #26D0CE);
             --text-color: #FFFFFF;
-            --error-color: #E53935;
-            --success-color: #43A047;
+            --error-color: #E74C3C;
+            --success-color: #2ECC71;
             --font-primary: 'Cinzel', serif;
             --font-secondary: 'Playfair Display', serif;
+            --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         body {
             margin: 0;
@@ -33,13 +34,15 @@
         header, footer {
             text-align: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
         header h1 {
             margin: 0;
             font-family: var(--font-primary);
-            font-size: 3em;
-            letter-spacing: 2px;
+            font-size: 3.5em;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         main {
             flex: 1;
@@ -47,78 +50,107 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px;
         }
         #quote-display {
-            font-size: 1.5em;
+            font-size: 1.6em;
             max-width: 800px;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
         }
         #quote-input {
             width: 80%;
             max-width: 800px;
-            padding: 10px;
-            font-size: 1.2em;
+            padding: 15px;
+            font-size: 1.3em;
             border: none;
-            border-bottom: 2px solid var(--accent-color);
-            background: transparent;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
             color: var(--text-color);
             outline: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--box-shadow);
+        }
+        #quote-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
         #quote-input::placeholder {
-            color: var(--secondary-color);
+            color: rgba(255, 255, 255, 0.6);
         }
         .hidden {
             display: none;
         }
         .stats {
-            margin-top: 20px;
-            font-size: 1.2em;
+            margin-top: 30px;
+            font-size: 1.3em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
         }
         .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1em;
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.1em;
             font-family: var(--font-primary);
             background: var(--accent-color);
-            color: #000;
+            color: var(--text-color);
             border: none;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: var(--box-shadow);
         }
         .button:hover {
-            background: var(--secondary-color);
+            background: #2980B9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
         }
         .correct {
             color: var(--success-color);
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
         }
         .incorrect {
             color: var(--error-color);
+            text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
         }
         #progress-bar {
             width: 80%;
             max-width: 800px;
-            height: 10px;
-            background: var(--secondary-color);
-            margin-top: 20px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+            border-radius: 6px;
             overflow: hidden;
+            box-shadow: var(--box-shadow);
         }
         #progress {
             width: 0%;
             height: 100%;
             background: var(--accent-color);
-            transition: width 0.1s;
+            transition: width 0.2s ease;
         }
         @media (max-width: 600px) {
             header h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
             #quote-display {
-                font-size: 1.2em;
+                font-size: 1.3em;
+                padding: 15px;
             }
             #quote-input {
-                font-size: 1em;
+                font-size: 1.1em;
+                padding: 12px;
+            }
+            .stats {
+                padding: 15px 25px;
             }
         }
     </style>
